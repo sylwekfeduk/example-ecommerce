@@ -30,7 +30,7 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'AzureAgentPool'
+    azureSubscription: 'AzureCourseConnection'
     appType: 'webApp'
     WebAppName: 'myAzureCourseApp'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
