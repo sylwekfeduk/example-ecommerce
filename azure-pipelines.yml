@@ -22,7 +22,19 @@ steps:
 - script: echo 'Starting Terraform Plan'
 - script: |
     terraform init
-    terraform validate
+    terraform apply
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'AzureCourseConnection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'terraform init'
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'AzureCourseConnection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'terraform apply'
 - script: |
     terraform plan -out=tfplan
     mv tfplan $(Pipeline.Workspace)
