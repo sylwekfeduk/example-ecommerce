@@ -6,7 +6,7 @@
 trigger:
 - main
 pool:
-  AzureCoursePool
+  AzureAgentPool
 
 variables:
   vmImageName: 'ubuntu-latest'
