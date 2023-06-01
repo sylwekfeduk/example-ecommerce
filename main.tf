@@ -27,9 +27,20 @@ resource "azurerm_app_service_plan" "example" {
   }
 }
 
+resource "azurerm_application_insights" "example" {
+  name                = "myAzureCourseAppInsights"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  application_type    = "web"
+}
+
 resource "azurerm_app_service" "example" {
   name                = "myAzureCourseApp"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   app_service_plan_id = azurerm_app_service_plan.example.id
+  app_settings = {
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.example.instrumentation_key
+  }
 }
+
