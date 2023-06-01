@@ -1,3 +1,12 @@
+terraform {
+    backend "azurerm" {
+        resource_group_name = "AzureResourceGroup"
+        storage_account_name = "AzureCourseStorage"
+        container_name = "tfstate"
+        key = "prod.terraform.tfstate"
+    }
+}
+
 provider "azurerm" {
   features {}
 }
