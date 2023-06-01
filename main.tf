@@ -4,6 +4,7 @@ terraform {
         storage_account_name = "AzureCourseStorage"
         container_name = "tfstate"
         key = "prod.terraform.tfstate"
+        access_key = "7fi8Q~IquX5mrwwF~Q4c.2i0sJiBMTNUs3rd3bBD"
     }
 }
 
