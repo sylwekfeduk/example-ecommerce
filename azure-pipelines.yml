@@ -14,34 +14,33 @@ stages:
 - stage: Build
   jobs:
   - job: Terraform
+  - deployment: DeployTerraform
+    environment: 'Development'
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: TerraformInstaller@0
+          inputs:
+            terraformVersion: $(terraformVersion)
+        - script: echo 'Starting Terraform Plan'
+        - script: |
+            terraform init
+            terraform apply
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'AzureCourseConnection'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: 'terraform init'
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'AzureCourseConnection'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: 'terraform apply'
+        - script: |
+            terraform plan -out=tfplan
+            mv tfplan $(Pipeline.Workspace)
 
-steps:
-- task: TerraformInstaller@0
-  inputs:
-    terraformVersion: $(terraformVersion)
-- script: echo 'Starting Terraform Plan'
-- script: |
-    terraform init
-    terraform apply
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'AzureCourseConnection'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'terraform init'
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'AzureCourseConnection'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'terraform apply'
-- script: |
-    terraform plan -out=tfplan
-    mv tfplan $(Pipeline.Workspace)
-- deployment: DeployTerraform
-  environment: 'Development'
 
-strategy:
-  runOnce:
-    deploy:
-      steps:
