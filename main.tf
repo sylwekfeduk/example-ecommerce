@@ -2,8 +2,8 @@ terraform {
     backend "azurerm" {
         resource_group_name = "AzureResourceGroup"
         storage_account_name = "azurecoursestorage"
-        container_name = "tfstate"
-        key = "prod.terraform.tfstate"
+        container_name = "azurecoursecontainer"
+        key = "prod.terraform.azurecoursecontainer"
         access_key = "BX2E7yfU1gJdcXmlgwp2+/ZwAnE+LU/goAWnWitV0vlxdfgIAtcNHxuRnwthhKHKGaDomp/KWqtQ+ASt3GNF/w=="
     }
 }
