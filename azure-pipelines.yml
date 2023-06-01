@@ -1,0 +1,35 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+variables:
+  vmImageName: 'ubuntu-latest'
+  terraformVersion: '0.15.1'
+
+stages:
+- stage: Build
+  jobs:
+  - job: Terraform
+
+steps:
+- task: TerraformInstaller@0
+  inputs:
+    terraformVersion: $(terraformVersion)
+- script: echo 'Starting Terraform Plan'
+- script: |
+    terraform init
+    terraform validate
+- script: |
+    terraform plan -out=tfplan
+    mv tfplan $(Pipeline.Workspace)
+- deployment: DeployTerraform
+  environment: 'Development'
+
+strategy:
+  runOnce:
+    deploy:
+      steps:
