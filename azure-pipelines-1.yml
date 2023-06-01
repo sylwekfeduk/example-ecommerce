@@ -9,7 +9,7 @@ trigger:
     - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  AzureAgentPool
 
 variables:
   buildConfiguration: 'Release'
