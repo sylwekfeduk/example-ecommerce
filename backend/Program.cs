@@ -8,7 +8,7 @@ using Backend.ProductCatalogModule;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseKestrel();
+builder.WebHost.UseIISIntegration();
 IConfiguration config = builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables()
