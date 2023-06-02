@@ -16,6 +16,7 @@ public class ImageUploadService : IImageStorageService
         BlobServiceClient blobServiceCLient = new BlobServiceClient(_config.GetConnectionString("storage"));
 
         BlobContainerClient blobContainerClient = blobServiceCLient.GetBlobContainerClient("mycoursestorageaccount2");
+        await blobContainerClient.CreateIfNotExistsAsync(PublicAccessType.BlobContainer);
 
         BlobClient blobClient = blobContainerClient.GetBlobClient(imageId.ToString());
 
