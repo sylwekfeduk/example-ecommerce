@@ -100,11 +100,7 @@ resource "azurerm_storage_container" "example" {
 }
 
 resource "azuread_application" "example" {
-  display_name = "myAzureCourseApp"
-  homepage     = "https://myAzureCourseApp.azurewebsites.net"
-  identifier_uris = [
-    "https://myAzureCourseApp.azurewebsites.net"
-  ]
+  display_name = "myWebCourseApp"
 }
 
 resource "azuread_service_principal" "example" {
