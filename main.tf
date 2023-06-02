@@ -12,14 +12,18 @@ provider "azurerm" {
   features {}
 }
 
+locals {
+  location  = "northeurope"
+}
+
 resource "azurerm_resource_group" "example" {
   name     = "AzureResourceGroup2"
-  location = "North Europe"
+  location = local.location
 }
 
 resource "azurerm_app_service_plan" "example" {
   name                = "myAzureCourseAppServicePlan"
-  location            = azurerm_resource_group.example.location
+  location            = local.location
   resource_group_name = azurerm_resource_group.example.name
   sku {
     tier = "Free"
@@ -29,14 +33,14 @@ resource "azurerm_app_service_plan" "example" {
 
 resource "azurerm_application_insights" "example" {
   name                = "myAzureCourseAppInsights"
-  location            = azurerm_resource_group.example.location
+  location            = local.location
   resource_group_name = azurerm_resource_group.example.name
   application_type    = "web"
 }
 
 resource "azurerm_app_service" "example" {
   name                = "myAzureCourseApp"
-  location            = azurerm_resource_group.example.location
+  location            = local.location
   resource_group_name = azurerm_resource_group.example.name
   app_service_plan_id = azurerm_app_service_plan.example.id
 
@@ -58,7 +62,7 @@ resource "azurerm_app_service" "example" {
 
 resource "azurerm_sql_server" "example" {
   name                         = "myazurecoursesqlserver"
-  location                     = azurerm_resource_group.example.location
+  location                     = local.location
   resource_group_name          = azurerm_resource_group.example.name
   version                      = "12.0"
   administrator_login          = "qperioradmin"
@@ -69,7 +73,7 @@ resource "azurerm_sql_database" "example" {
   name                = "myAzureCourseDatabase"
   resource_group_name = azurerm_resource_group.example.name
   server_name         = azurerm_sql_server.example.name
-  location            = azurerm_app_service.example.location
+  location            = local.location
   edition             = "Basic"
 }
 
