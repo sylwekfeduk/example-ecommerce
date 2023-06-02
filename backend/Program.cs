@@ -6,6 +6,8 @@ using Backend.InventoryModule;
 using Backend.MockImplementations;
 using Backend.ProductCatalogModule;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseIISIntegration();
@@ -15,7 +17,7 @@ IConfiguration config = builder.Configuration
     .Build();
 builder.Services.AddSingleton(config);
 // TODO
-builder.Services.AddDbContext<BackendDbContext>(opt => opt.UseInMemoryDatabase("mock"));
+builder.Services.AddDbContext<BackendDbContext>(opt => opt.UseSqlServer("name=ConnectionStrings:myDb1"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
