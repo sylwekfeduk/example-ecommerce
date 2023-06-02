@@ -74,7 +74,7 @@ resource "azurerm_sql_database" "example" {
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "mystorageaccount"
+  name                     = "myazurecoursestorageaccount2"
   resource_group_name      = azurerm_resource_group.example.name
   location = local.location
   account_tier = "Standard"
@@ -83,7 +83,7 @@ resource "azurerm_storage_account" "example" {
 }
 
 resource "azurerm_storage_container" "example" {
-  name = "mycontainer"
+  name = "myazurecoursecontainer2"
   storage_account_name = azurerm_storage_account.example.name
   container_access_type = "private"
 }
