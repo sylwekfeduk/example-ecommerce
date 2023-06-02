@@ -50,7 +50,7 @@ resource "azurerm_sql_server" "example" {
   resource_group_name          = azurerm_resource_group.example.name
   version                      = "12.0"
   administrator_login          = "qperioradmin"
-  administrator_login_password = "qperioradmin!"
+  administrator_login_password = "Qperioradmin2!"
 }
 
 resource "azurerm_sql_database" "example" {
