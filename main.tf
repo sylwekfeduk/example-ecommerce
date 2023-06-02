@@ -45,7 +45,7 @@ resource "azurerm_app_service" "example" {
 }
 
 resource "azurerm_sql_server" "example" {
-  name                         = "myAzureCourseSqlServer"
+  name                         = "myazurecoursesqlserver"
   location                     = azurerm_resource_group.example.location
   resource_group_name          = azurerm_resource_group.example.name
   version                      = "12.0"
