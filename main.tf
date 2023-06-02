@@ -6,10 +6,21 @@ terraform {
         key = "prod.terraform.tfstate"
         access_key = "BX2E7yfU1gJdcXmlgwp2+/ZwAnE+LU/goAWnWitV0vlxdfgIAtcNHxuRnwthhKHKGaDomp/KWqtQ+ASt3GNF/w=="
     }
+
+    required_providers {
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "~> 2.15.0"
+    }
+  }
 }
 
 provider "azurerm" {
   features {}
+}
+
+provider "azuread" {
+  tenant_id = "19618cfd-7df8-403a-9774-2bf8ad068e3b"
 }
 
 locals {
@@ -86,4 +97,16 @@ resource "azurerm_storage_container" "example" {
   name = "mycoursecontainer2"
   storage_account_name = azurerm_storage_account.example.name
   container_access_type = "private"
+}
+
+resource "azuread_application" "example" {
+  display_name = "myAzureCourseApp"
+  homepage     = "https://myAzureCourseApp.azurewebsites.net"
+  identifier_uris = [
+    "https://myAzureCourseApp.azurewebsites.net"
+  ]
+}
+
+resource "azuread_service_principal" "example" {
+  application_id = azuread_application.example.application_id
 }
