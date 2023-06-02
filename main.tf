@@ -44,3 +44,18 @@ resource "azurerm_app_service" "example" {
   }
 }
 
+resource "azurerm_sql_server" "example" {
+  name                         = "myAzureCourseSqlServer"
+  location                     = azurerm_resource_group.example.location
+  resource_group_name          = azurerm_resource_group.example.name
+  version                      = "12.0"
+  administrator_login          = "qperioradmin"
+  administrator_login_password = "qperioradmin!"
+}
+
+resource "azurerm_sql_database" "example" {
+  name                = "myAzureCourseDatabase"
+  resource_group_name = azurerm_resource_group.example.name
+  server_name         = azurerm_sql_server.example.name
+  edition             = "Basic"
+}
